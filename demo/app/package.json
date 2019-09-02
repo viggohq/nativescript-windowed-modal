@@ -9,7 +9,7 @@
   "android": {
     "v8Flags": "--expose_gc",
     "requireModules": [
-      "nativescript-windowed-modal"
+      "@viggo/nativescript-windowed-modal"
     ]
   }
 }

@@ -9,7 +9,7 @@ This plugin overrides the `showModal()` from nativescript, making modals look an
 ## Installation
 
 ```cmd
-tns plugin add nativescript-windowed-modal
+tns plugin add @viggo/nativescript-windowed-modal
 ```
 
 ## Usage
@@ -21,14 +21,14 @@ Call the `overrideModalViewMethod()` once before starting the app and register t
 #### Javascript
 
 ```js
-var windowedModal = require("nativescript-windowed-modal")
+var windowedModal = require("@viggo/nativescript-windowed-modal")
 windowedModal.overrideModalViewMethod()
 ```
 
 #### Typescript+Angular
 
 ```ts
-import { ExtendedShowModalOptions, ModalStack, overrideModalViewMethod } from "nativescript-windowed-modal"
+import { ExtendedShowModalOptions, ModalStack, overrideModalViewMethod } from "@viggo/nativescript-windowed-modal"
 
 overrideModalViewMethod()
 registerElement("ModalStack", () => ModalStack)
@@ -48,7 +48,7 @@ mainPage.showModal("./modal", {
 
 ```js
 // main.js
-import { ModalStack, overrideModalViewMethod, VueWindowedModal } from "nativescript-windowed-modal"
+import { ModalStack, overrideModalViewMethod, VueWindowedModal } from "@viggo/nativescript-windowed-modal"
 
 overrideModalViewMethod()
 Vue.registerElement("ModalStack", () => ModalStack)
@@ -98,7 +98,7 @@ Wrap your modal component with a `ModalStack` tag to layout the elements in a co
 #### XML
 
 ```xml
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:modal="nativescript-windowed-modal">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:modal="@viggo/nativescript-windowed-modal">
     <modal:ModalStack dismissEnabled="true" class="modal-container">
         <StackLayout class="modal">
             <Label text="Hi, I'm your modal" class="text-center" textWrap="true"/>
