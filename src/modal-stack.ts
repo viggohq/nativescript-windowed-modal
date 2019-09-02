@@ -1,5 +1,4 @@
-import { GestureEventData } from "tns-core-modules/ui/gestures/gestures";
-import { booleanConverter, CSSType, isIOS, layout, LayoutBase, View } from "tns-core-modules/ui/layouts/layout-base";
+import { CSSType } from "tns-core-modules/ui/layouts/layout-base";
 import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout/stack-layout";
 import { HorizontalAlignment, VerticalAlignment } from "tns-core-modules/ui/styling/style-properties";
 
@@ -17,45 +16,46 @@ export class ModalStack extends StackLayout {
     onLoaded(): void {
         super.onLoaded();
 
-        const modalView = this.getChildAt(0) as LayoutBase;
+        // const modalView = this.getChildAt(0) as LayoutBase;
 
         this.set("height", "100%");
         this.set("width", "100%");
         this.horizontalAlignment = this.horizontalPosition;
         this.verticalAlignment = this.verticalPosition;
-        this.on("tap", (evt) => this.outsideTap(evt as GestureEventData, modalView));
+        // https://github.com/MukaSchultze/nativescript-windowed-modal/issues/3
+        // this.on("tap", (evt) => this.outsideTap(evt as GestureEventData, modalView));
 
     }
 
-    private outsideTap(args: GestureEventData, modal: View): void {
-        if (!booleanConverter(this.dismissEnabled)) {
-            return; // Don't close the modal
-        }
+    // private outsideTap(args: GestureEventData, modal: View): void {
+    //     if (!booleanConverter(this.dismissEnabled)) {
+    //         return; // Don't close the modal
+    //     }
 
-        if (isIOS) {
-            const iosMotion = args.ios;
-            const view = iosMotion.view;
-            const tapPos = iosMotion.locationInView(view);
-            const modalFrame = modal.ios.frame;
-            const insideRect = CGRectContainsPoint(modalFrame, tapPos);
+    //     if (isIOS) {
+    //         const iosMotion = args.ios;
+    //         const view = iosMotion.view;
+    //         const tapPos = iosMotion.locationInView(view);
+    //         const modalFrame = modal.ios.frame;
+    //         const insideRect = CGRectContainsPoint(modalFrame, tapPos);
 
-            if (insideRect) { // Touched inside, don't close.
-                return;
-            }
-        } else {
-            const androidMotion: android.view.MotionEvent = args.android;
-            const x = androidMotion.getRawX() - layout.toDevicePixels(this.getLocationOnScreen().x);
-            const y = androidMotion.getRawY() - layout.toDevicePixels(this.getLocationOnScreen().y);
-            const rect = new android.graphics.Rect();
+    //         if (insideRect) { // Touched inside, don't close.
+    //             return;
+    //         }
+    //     } else {
+    //         const androidMotion: android.view.MotionEvent = args.android;
+    //         const x = androidMotion.getRawX() - layout.toDevicePixels(this.getLocationOnScreen().x);
+    //         const y = androidMotion.getRawY() - layout.toDevicePixels(this.getLocationOnScreen().y);
+    //         const rect = new android.graphics.Rect();
 
-            modal.android.getHitRect(rect);
-            const insideRect = rect.contains(x, y);
+    //         modal.android.getHitRect(rect);
+    //         const insideRect = rect.contains(x, y);
 
-            if (insideRect) { // Touched inside, don't close.
-                return;
-            }
-        }
+    //         if (insideRect) { // Touched inside, don't close.
+    //             return;
+    //         }
+    //     }
 
-        modal.closeModal();
-    }
+    //     modal.closeModal();
+    // }
 }
